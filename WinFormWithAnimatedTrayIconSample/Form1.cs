@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-namespace WinFormWithTrayIcon
+namespace WinFormWithAnimatedTrayIconSample
 {
     public partial class Form1 : Form
     {
