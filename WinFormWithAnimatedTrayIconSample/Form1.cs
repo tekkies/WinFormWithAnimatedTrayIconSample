@@ -21,12 +21,14 @@ namespace WinFormWithAnimatedTrayIconSample
             contextMenuStrip1.Items.Add("&Restore");
             contextMenuStrip1.Items.Add("-");
             contextMenuStrip1.Items.Add("E&xit");
-            animationTimer.Start();
+            timerAnimation.Start();
             DrawIcon();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timerAnimation.Stop();
+
             if (Terminating)
             {
                 // the idle state has occurred, and the tray notification should be gone.
@@ -110,7 +112,7 @@ namespace WinFormWithAnimatedTrayIconSample
             WindowState = FormWindowState.Normal;
         }
 
-        private void animationTimer_Tick(object sender, EventArgs e)
+        private void timerAnimation_Tick(object sender, EventArgs e)
         {
             DrawIcon();
         }

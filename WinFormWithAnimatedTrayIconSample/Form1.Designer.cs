@@ -35,7 +35,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.timerCloseApp = new System.Windows.Forms.Timer(this.components);
-            this.animationTimer = new System.Windows.Forms.Timer(this.components);
+            this.timerAnimation = new System.Windows.Forms.Timer(this.components);
             this.buttonMinimize = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -79,8 +79,8 @@
             // 
             // animationTimer
             // 
-            this.animationTimer.Interval = 300;
-            this.animationTimer.Tick += new System.EventHandler(this.animationTimer_Tick);
+            this.timerAnimation.Interval = 300;
+            this.timerAnimation.Tick += new System.EventHandler(this.timerAnimation_Tick);
             // 
             // buttonMinimize
             // 
@@ -119,7 +119,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Timer timerCloseApp;
-        private System.Windows.Forms.Timer animationTimer;
+        private System.Windows.Forms.Timer timerAnimation;
         private System.Windows.Forms.Button buttonMinimize;
     }
 }
