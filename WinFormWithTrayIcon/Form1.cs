@@ -1,29 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace WinFormWithTrayIcon
 {
     public partial class Form1 : Form
     {
-        bool Terminating = false;
+        private const int IconWidth = 64;
+        bool Terminating;
 
         public Form1()
         {
             InitializeComponent();
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.contextMenuStrip1.Items.Clear();
-            this.contextMenuStrip1.Items.Add("&Restore");
-            this.contextMenuStrip1.Items.Add("-");
-            this.contextMenuStrip1.Items.Add("E&xit");
+            contextMenuStrip1.Items.Clear();
+            contextMenuStrip1.Items.Add("&Restore");
+            contextMenuStrip1.Items.Add("-");
+            contextMenuStrip1.Items.Add("E&xit");
+            animationTimer.Start();
+            DrawIcon();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -49,30 +48,30 @@ namespace WinFormWithTrayIcon
                 e.Cancel = true;
 
                 // Dispose of the tray icon this way.
-                this.notifyIcon1.Dispose();
+                notifyIcon1.Dispose();
                 
                 // Set the termination flag so that the next entry into this event will
                 // not be cancelled.
                 Terminating = true;
                 
                 // Activate the timer to fire
-                this.timer1.Interval = 100;
-                this.timer1.Enabled = true;
-                this.timer1.Start();
+                timerCloseApp.Interval = 100;
+                timerCloseApp.Enabled = true;
+                timerCloseApp.Start();
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void closeTimer_Tick(object sender, EventArgs e)
         {
             // the idle state is past.. at this point, the tray notification is gone from
             // the system tray.  
 
             // Deactivate the timer.. it is no longer needed.
-            timer1.Stop();
-            timer1.Enabled = false;
+            timerCloseApp.Stop();
+            timerCloseApp.Enabled = false;
 
             // close the form, which will start the shutdown of the application.
-            this.Close();
+            Close();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -87,24 +86,51 @@ namespace WinFormWithTrayIcon
             {
                 Show();
                 WindowState = FormWindowState.Normal;
-                return;
             }
 
             else if (e.ClickedItem.Text == "E&xit")
             {
-                this.Close();
+                Close();
             }
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void buttonExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void minimizeButton_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             Show();
             WindowState = FormWindowState.Normal;
+        }
+
+        private void animationTimer_Tick(object sender, EventArgs e)
+        {
+            DrawIcon();
+        }
+
+        private void DrawIcon()
+        {
+            using (var bitmap = new Bitmap(IconWidth, IconWidth, PixelFormat.Format32bppPArgb))
+            {
+                var dateTime = DateTime.Now;
+                var angle = ((dateTime.Second*1000+dateTime.Millisecond) % 10000) * 360 / 10000;
+                using (var graphics = Graphics.FromImage(bitmap))
+                {
+                    var rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                    graphics.FillRectangle(Brushes.Black, rectangle);
+                    graphics.FillPie(Brushes.White, rectangle, angle, 360);
+                    graphics.FillPie(Brushes.Red, rectangle, 0, angle);
+                    graphics.DrawLine(Pens.White, 0,0,IconWidth, IconWidth);
+                }
+                notifyIcon1.Icon = Icon.FromHandle(bitmap.GetHicon());
+            }
         }
     }
 }
