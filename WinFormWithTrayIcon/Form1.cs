@@ -127,7 +127,6 @@ namespace WinFormWithTrayIcon
                     graphics.FillRectangle(Brushes.Black, rectangle);
                     graphics.FillPie(Brushes.White, rectangle, angle, 360);
                     graphics.FillPie(Brushes.Red, rectangle, 0, angle);
-                    graphics.DrawLine(Pens.White, 0,0,IconWidth, IconWidth);
                 }
                 notifyIcon1.Icon = Icon.FromHandle(bitmap.GetHicon());
             }
