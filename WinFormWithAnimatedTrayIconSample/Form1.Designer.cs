@@ -30,13 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.buttonMinimize = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.timerCloseApp = new System.Windows.Forms.Timer(this.components);
             this.timerAnimation = new System.Windows.Forms.Timer(this.components);
-            this.buttonMinimize = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +46,7 @@
             this.buttonExit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(184, 28);
-            this.buttonExit.TabIndex = 0;
+            this.buttonExit.TabIndex = 1;
             this.buttonExit.Text = "&Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
@@ -88,7 +88,7 @@
             this.buttonMinimize.Margin = new System.Windows.Forms.Padding(4);
             this.buttonMinimize.Name = "buttonMinimize";
             this.buttonMinimize.Size = new System.Drawing.Size(184, 28);
-            this.buttonMinimize.TabIndex = 1;
+            this.buttonMinimize.TabIndex = 0;
             this.buttonMinimize.Text = "&Minimize";
             this.buttonMinimize.UseVisualStyleBackColor = true;
             this.buttonMinimize.Click += new System.EventHandler(this.minimizeButton_Click);
@@ -99,8 +99,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(432, 239);
-            this.Controls.Add(this.buttonMinimize);
             this.Controls.Add(this.buttonExit);
+            this.Controls.Add(this.buttonMinimize);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
