@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace WinFormWithAnimatedTrayIconSample
@@ -27,8 +28,6 @@ namespace WinFormWithAnimatedTrayIconSample
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            timerAnimation.Stop();
-
             if (Terminating)
             {
                 // the idle state has occurred, and the tray notification should be gone.
@@ -117,20 +116,29 @@ namespace WinFormWithAnimatedTrayIconSample
             DrawIcon();
         }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
+        extern static bool DestroyIcon(IntPtr handle);
+
         private void DrawIcon()
         {
-            using (var bitmap = new Bitmap(IconWidth, IconWidth, PixelFormat.Format32bppPArgb))
+            if (!Terminating)
             {
-                var dateTime = DateTime.Now;
-                var angle = ((dateTime.Second*1000+dateTime.Millisecond) % 10000) * 360 / 10000;
-                using (var graphics = Graphics.FromImage(bitmap))
+                using (var bitmap = new Bitmap(IconWidth, IconWidth, PixelFormat.Format32bppPArgb))
                 {
-                    var rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-                    graphics.FillRectangle(Brushes.Black, rectangle);
-                    graphics.FillPie(Brushes.White, rectangle, angle, 360);
-                    graphics.FillPie(Brushes.Red, rectangle, 0, angle);
+                    var dateTime = DateTime.Now;
+                    var angle = ((dateTime.Second * 1000 + dateTime.Millisecond) % 10000) * 360 / 10000;
+                    using (var graphics = Graphics.FromImage(bitmap))
+                    {
+                        var rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                        graphics.FillRectangle(Brushes.Black, rectangle);
+                        graphics.FillPie(Brushes.White, rectangle, angle, 360);
+                        graphics.FillPie(Brushes.Red, rectangle, 0, angle);
+                    }
+
+                    var hIcon = bitmap.GetHicon();
+                    notifyIcon1.Icon = Icon.FromHandle(hIcon);
+                    DestroyIcon(notifyIcon1.Icon.Handle);
                 }
-                notifyIcon1.Icon = Icon.FromHandle(bitmap.GetHicon());
             }
         }
     }
