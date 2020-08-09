@@ -35,10 +35,20 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.timerCloseApp = new System.Windows.Forms.Timer(this.components);
             this.timerAnimation = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // buttonMinimize
+            // 
+            this.buttonMinimize.Location = new System.Drawing.Point(235, 198);
+            this.buttonMinimize.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonMinimize.Name = "buttonMinimize";
+            this.buttonMinimize.Size = new System.Drawing.Size(184, 28);
+            this.buttonMinimize.TabIndex = 0;
+            this.buttonMinimize.Text = "&Minimize";
+            this.buttonMinimize.UseVisualStyleBackColor = true;
+            this.buttonMinimize.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
             // buttonExit
             // 
@@ -73,25 +83,10 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
-            // timerCloseApp
-            // 
-            this.timerCloseApp.Tick += new System.EventHandler(this.closeTimer_Tick);
-            // 
-            // animationTimer
+            // timerAnimation
             // 
             this.timerAnimation.Interval = 300;
             this.timerAnimation.Tick += new System.EventHandler(this.timerAnimation_Tick);
-            // 
-            // buttonMinimize
-            // 
-            this.buttonMinimize.Location = new System.Drawing.Point(235, 198);
-            this.buttonMinimize.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonMinimize.Name = "buttonMinimize";
-            this.buttonMinimize.Size = new System.Drawing.Size(184, 28);
-            this.buttonMinimize.TabIndex = 0;
-            this.buttonMinimize.Text = "&Minimize";
-            this.buttonMinimize.UseVisualStyleBackColor = true;
-            this.buttonMinimize.Click += new System.EventHandler(this.minimizeButton_Click);
             // 
             // Form1
             // 
@@ -118,7 +113,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Timer timerCloseApp;
         private System.Windows.Forms.Timer timerAnimation;
         private System.Windows.Forms.Button buttonMinimize;
     }
