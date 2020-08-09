@@ -9,12 +9,12 @@ namespace WinFormWithAnimatedTrayIconSample
     public partial class Form1 : Form
     {
         private const int IconWidth = 64;
-        private readonly TerminateManager _closeManager;
+        private readonly TerminateManager _terminateManager;
 
         public Form1()
         {
             InitializeComponent();
-            _closeManager = new TerminateManager(this, notifyIcon1);
+            _terminateManager = new TerminateManager(this, notifyIcon1);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace WinFormWithAnimatedTrayIconSample
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _closeManager.FormClosing(sender, e);
+            _terminateManager.FormClosing(sender, e);
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace WinFormWithAnimatedTrayIconSample
 
         private void DrawIcon()
         {
-            if (!_closeManager.Terminating)
+            if (!_terminateManager.Terminating)
             {
                 using (var bitmap = new Bitmap(IconWidth, IconWidth, PixelFormat.Format32bppPArgb))
                 {
